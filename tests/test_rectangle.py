@@ -6,16 +6,10 @@ def test_create_rectangle(rectangle):
     assert rectangle
 
 
-@pytest.mark.parametrize("first_side", [0, -4, 1])
-def test_fail_first_side_rectangle(first_side):
+@pytest.mark.parametrize("first_side, second_side", [(0, 0), (0, 100), (67.7, 0), (-11, 7), (5, -15.5), (-12, -3.33)])
+def test_create_fail_rectangle(first_side, second_side):
     with pytest.raises(ValueError):
-        rectangle = Rectangle(first_side, 1)
-
-
-@pytest.mark.parametrize("second_side", [0, -1, 1])
-def test_fail_second_side_rectangle(second_side):
-    with pytest.raises(ValueError):
-        rectangle = Rectangle(1, second_side)
+        Rectangle(first_side, second_side)
 
 
 @pytest.mark.parametrize("attribute", ["name", "area", "perimeter"])
@@ -24,13 +18,13 @@ def test_rectangle_has_attribute(rectangle, attribute):
 
 
 def test_rectangle_area(rectangle):
-    s = rectangle.first_side * rectangle.second_side
-    assert rectangle.area == s.__round__(2)
+    s = round(rectangle.first_side * rectangle.second_side, 2)
+    assert rectangle.area == s
 
 
 def test_rectangle_perimeter(rectangle):
-    per = (rectangle.first_side + rectangle.second_side) * 2
-    assert rectangle.perimeter == per.__round__(2)
+    per = round((rectangle.first_side + rectangle.second_side) * 2, 2)
+    assert rectangle.perimeter == per
 
 
 def test_rectangle_add_area_square(rectangle, square):
@@ -45,6 +39,6 @@ def test_rectangle_add_area_circle(rectangle, circle):
     assert rectangle.add_area(circle) == rectangle.area + circle.area
 
 
-def test_rectangle_add_area_other(rectangle, other):
+def test_rectangle_add_area_not_figure(rectangle, not_figure):
     with pytest.raises(ValueError):
-        rectangle.add_area(other)
+        rectangle.add_area(not_figure)

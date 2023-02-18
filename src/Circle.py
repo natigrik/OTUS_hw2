@@ -8,16 +8,14 @@ class Circle(Figure):
     def __init__(self, radius):
         if radius <= 0:
             raise ValueError("Radius must be >0!")
-        else:
-            self.radius = radius
         self.radius = radius
 
     @property
     def area(self):
-        s = (self.radius ** 2) * math.pi
-        return s.__round__(2)
+        s = round((self.radius ** 2) * math.pi, 2)
+        return s
 
     @property
     def perimeter(self):
-        per = self.radius * 2 * math.pi
-        return per.__round__(2)
+        per = round(self.radius * 2 * math.pi, 2)
+        return per

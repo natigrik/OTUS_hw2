@@ -9,7 +9,7 @@ def test_create_square(square):
 @pytest.mark.parametrize("side", [0, -4, -14.50])
 def test_create_fail_square(side):
     with pytest.raises(ValueError):
-        square = Square(side)
+        Square(side)
 
 
 @pytest.mark.parametrize("attribute", ["name", "area", "perimeter"])
@@ -18,13 +18,13 @@ def test_circle_has_attribute(square, attribute):
 
 
 def test_square_area(square):
-    s = square.side ** 2
-    assert square.area == s.__round__(2)
+    s = round(square.side ** 2, 2)
+    assert square.area == s
 
 
 def test_square_perimeter(square):
-    per = square.side * 4
-    assert square.perimeter == per.__round__(2)
+    per = round(square.side * 4, 2)
+    assert square.perimeter == per
 
 
 def test_square_add_area_rectangle(square, rectangle):
@@ -39,6 +39,6 @@ def test_square_add_area_circle(square, circle):
     assert square.add_area(circle) == square.area + circle.area
 
 
-def test_square_add_area_other(square, other):
+def test_square_add_area_not_figure(square, not_figure):
     with pytest.raises(ValueError):
-        square.add_area(other)
+        square.add_area(not_figure)
